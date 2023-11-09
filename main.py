@@ -9,7 +9,6 @@ master = mavutil.mavlink_connection('udpin:localhost:14550')  # Example UDP inpu
 
 fname = f"/home/max/{str(uuid4())[:6]}_positions.csv"
 
-# Receive and process messages in a loop
 with open(fname, "w") as f:
     f.write(", ".join(['time_boot_ms', 'lat', 'lon', 'alt', 'relative_alt', 'vx', 'vy', 'vz', 'hdg'])  + "\n")
     while True:
@@ -19,7 +18,6 @@ with open(fname, "w") as f:
         # Check if a specific message type is received
         if msg is not None and msg.get_type() == 'GLOBAL_POSITION_INT':
             # Process the received message
-            # Extract data from the message using msg.field1, msg.field2, etc.
             print("Received message:", msg)
             content = list(msg.to_dict().values())[1:]
             f.write(str(content)[1:-1] + "\n")
